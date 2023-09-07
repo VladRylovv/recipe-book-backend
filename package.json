@@ -1,0 +1,27 @@
+{
+  "name": "recipes-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Vlad Rylov",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "dayjs": "^1.11.9",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "mysql": "^2.18.1",
+    "pg-promise": "^11.5.3",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "nodemon": "^3.0.1"
+  }
+}
