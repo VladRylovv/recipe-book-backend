@@ -8,15 +8,13 @@ class RecipeService {
         const recipes = await db.query("SELECT * FROM recipes")
         const users = await db.query("SELECT * FROM users")
 
-        const recipesFormat = recipes.map(item => {
+        return recipes.map(item => {
             const user = users.find(user => user.id === item.author_id)
 
             if (user) return {...new RecipeDto(item, user)}
 
             return {...new RecipeDto(item, null)}
         })
-
-        return recipesFormat
     }
 
     async getDetailRecipe(id) {
@@ -27,13 +25,11 @@ class RecipeService {
 
         const user = await db.query("SELECT * FROM users WHERE id = $1", [recipe.author_id])
 
-        const recipeFormat = user ? {
+        return user ? {
             ...new RecipeDto(recipe, user[0])
         } : {
             ...new RecipeDto(recipe, null)
         }
-
-        return recipeFormat
     }
 
     async createRecipe(name, img, description, authorId) {
@@ -46,13 +42,11 @@ class RecipeService {
             , [name, img, authorId, date, description]
         )
 
-        const recipeFormat = user ? {
+        return user ? {
             ...new RecipeDto(createdRecipe[0], user[0])
         } : {
             ...new RecipeDto(createdRecipe[0], null)
         }
-
-        return recipeFormat
     }
 }
 

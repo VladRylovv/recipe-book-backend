@@ -6,6 +6,7 @@ module.exports = class RecipeDto {
     img;
     user;
     description;
+    createdAt;
 
     constructor(data, user) {
         this.id = data.id
@@ -13,5 +14,6 @@ module.exports = class RecipeDto {
         this.img = data.img
         this.description = data.description
         this.user = user ? {...new UserDto(user)} : null
+        this.createdAt = data.created_at
     }
 }
