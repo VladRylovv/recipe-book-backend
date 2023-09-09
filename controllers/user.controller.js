@@ -27,7 +27,9 @@ class UserController {
         try {
             const {id, name, email, login} = req.body
 
-            const user = await userService.editUser(id, login, name, email)
+            const image = req.files?.image ? await userService.uploadImage(req, res, next) : null
+
+            const user = await userService.editUser(id, login, name, email, image)
 
             res.status(200).json(user)
         } catch (err) {
