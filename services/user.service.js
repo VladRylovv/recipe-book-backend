@@ -52,7 +52,7 @@ class UserService {
         if (!user.length) throw ApiError.NotFound()
 
         const loginCheck = await db.query("SELECT * FROM users WHERE login = $1 AND id != $2", [login, id])
-        if (loginCheck.length) throw ApiError.Conflict("Login is already exists", {conflictField: "email"})
+        if (loginCheck.length) throw ApiError.Conflict("Login is already exists", {conflictField: "login"})
 
         if (email) {
             const emailCheck = await db.query("SELECT * FROM users WHERE email = $1 AND id != $2", [email, id])
@@ -65,6 +65,17 @@ class UserService {
         const avatarOverwrite = avatar ? avatar : user[0].avatar
 
         await db.query("UPDATE users SET name = $1, login = $2, email = $3, avatar = $4 WHERE id = $5", [nameOverwrite, loginOverwrite, emailOverwrite, avatarOverwrite, id])
+        const editedUser = await db.query("SELECT * FROM users WHERE id = $1", [id])
+
+        return {...new UserDto(editedUser[0])}
+    }
+
+    async deleteAvatar(id) {
+        const user = await db.query("SELECT * FROM users WHERE id = $1", [id])
+
+        if (!user.length) throw ApiError.NotFound()
+
+        await db.query("UPDATE users SET avatar = $1 WHERE id = $2", [null, id])
         const editedUser = await db.query("SELECT * FROM users WHERE id = $1", [id])
 
         return {...new UserDto(editedUser[0])}

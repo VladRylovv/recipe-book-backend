@@ -36,6 +36,18 @@ class UserController {
             next(err)
         }
     }
+
+    async deleteAvatar(req, res, next) {
+        try {
+            const {id} = req.body
+
+            const user = await userService.deleteAvatar(id)
+
+            res.status(200).json(user)
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = new UserController()

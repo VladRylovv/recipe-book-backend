@@ -2,9 +2,8 @@ module.exports = class ApiError extends Error {
     status;
     errors;
     message;
-    conflictField;
 
-    constructor(status, message, errors = [], conflictField) {
+    constructor(status, message, errors = []) {
         super();
         this.message = message
         this.status = status
@@ -13,6 +12,10 @@ module.exports = class ApiError extends Error {
 
     static UnauthorizedError() {
         return new ApiError(401, "Unauthorized")
+    }
+
+    static Forbidden() {
+        return new ApiError(403, "Forbidden")
     }
 
     static BadRequest(message, errors = []) {
