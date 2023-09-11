@@ -5,6 +5,7 @@ module.exports = class UserDto {
     login;
     roleId;
     createdAt;
+    avatar;
 
     constructor(data) {
         this.id = data.id
@@ -13,5 +14,6 @@ module.exports = class UserDto {
         this.name = data.name
         this.email = data.email
         this.createdAt = data.created_at
+        this.avatar = data.avatar
     }
 }
