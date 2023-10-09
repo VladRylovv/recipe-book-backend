@@ -14,8 +14,8 @@ const app = express()
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie');
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization, Set-Cookie, authorization');
+    res.header('Access-Control-Allow-Methods', 'OPTIONS, PUT, POST, GET, DELETE');
     res.header('Access-Control-Allow-Credentials', "true");
     next();
 });

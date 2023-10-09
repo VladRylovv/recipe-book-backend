@@ -7,6 +7,7 @@ module.exports = class RecipeDto {
     user;
     description;
     createdAt;
+    isChecked
 
     constructor(data, user) {
         this.id = data.id
@@ -15,5 +16,6 @@ module.exports = class RecipeDto {
         this.description = data.description
         this.user = user ? {...new UserDto(user)} : null
         this.createdAt = data.created_at
+        this.isChecked = data.is_checked
     }
 }
