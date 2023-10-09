@@ -5,7 +5,7 @@ const ApiError = require("../exceptions/api.error")
 
 class RecipeService {
     async getRecipes() {
-        const recipes = await db.query("SELECT * FROM recipes")
+        const recipes = await db.query("SELECT * FROM recipes WHERE is_checked = $1", [true])
         const users = await db.query("SELECT * FROM users")
 
         return recipes.map(item => {
@@ -15,6 +15,30 @@ class RecipeService {
 
             return {...new RecipeDto(item, null)}
         })
+    }
+
+    async getRecipesCheck() {
+        const recipes = await db.query("SELECT * FROM recipes WHERE is_checked = $1", [false])
+        const users = await db.query("SELECT * FROM users")
+
+        return recipes.map(item => {
+            const user = users.find(user => user.id === item.author_id)
+
+            if (user) return {...new RecipeDto(item, user)}
+
+            return {...new RecipeDto(item, null)}
+        })
+    }
+
+    async checkRecipe(recipeId) {
+        await db.query("UPDATE recipes SET is_checked = $1 WHERE id = $2", [true, recipeId])
+        const recipe = await db.query("SELECT * FROM recipes WHERE id = $1", [recipeId])
+
+        const authorId = recipe[0].author_id
+
+        const user = await db.query("SELECT * FROM users WHERE id = $1", [authorId])
+
+        return {...new RecipeDto(recipe[0], user[0])}
     }
 
     async getDetailRecipe(id) {

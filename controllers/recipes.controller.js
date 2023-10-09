@@ -11,6 +11,32 @@ class RecipesController {
         }
     }
 
+    async getRecipesCheck(req, res, next) {
+        try {
+            const recipes = await recipeService.getRecipesCheck()
+
+            res.status(200).json(recipes)
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    async checkRecipe(req, res, next) {
+        try {
+            const {recipeId} = req.params
+
+            const recipe = await recipeService.checkRecipe(recipeId)
+
+            res.status(200).json({
+                recipeId,
+                recipe,
+                message: "Success check"
+            })
+        } catch (err) {
+            next(err)
+        }
+    }
+
     async getDetailRecipe(req, res, next) {
         try {
             const {recipeId} = req.params
