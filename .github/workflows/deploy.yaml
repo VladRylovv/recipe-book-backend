@@ -31,9 +31,9 @@ jobs:
           command: |
             cd ../recipe-book-backend;
             git pull;
-            sed "/PORT_DB/d" .env;
-            sed "/DB_USER/d" .env;
-            sed "/DB_PASSWORD/d" .env;
+            sed -i "/PORT_DB/d" .env;
+            sed -i "/DB_USER/d" .env;
+            sed -i "/DB_PASSWORD/d" .env;
             echo "PORT_DB=5432" >> .env;
             echo "DB_USER=${{ secrets.DB_USERNAME }}" >> .env;
             echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env;
