@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "watch": "nodemon index.js"
+    "watch": "nodemon -r dotenv/config index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
