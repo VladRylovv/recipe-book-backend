@@ -21,4 +21,6 @@ jobs:
           command: |
             cd ../recipe-book-backend;
             git pull;
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             npm run build;
