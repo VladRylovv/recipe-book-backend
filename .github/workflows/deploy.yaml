@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Install NVM
+        run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+      - name: Use Node.js version with NVM
+        run: nvm install node
+      - name: Set Node.js version with NVM
+        run: nvm use node
       - name: Run command on remote server
         uses: D3rHase/ssh-command-action@v0.2.2
         with:
