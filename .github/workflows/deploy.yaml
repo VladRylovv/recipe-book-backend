@@ -21,6 +21,5 @@ jobs:
           command: |
             cd ../recipe-book-backend;
             git pull;
-            node -v
             npm -v
             npm run build;
