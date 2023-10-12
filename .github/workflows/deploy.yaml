@@ -30,6 +30,7 @@ jobs:
           private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           command: |
             cd ../recipe-book-backend;
+            rm -f .env;
             git pull;
             sed -i "/PORT_DB/d" .env;
             sed -i "/DB_USER/d" .env;
