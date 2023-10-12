@@ -32,6 +32,8 @@ jobs:
             cd ../recipe-book-backend;
             rm -f .env;
             git pull;
+            git fetch;
+            git checkout origin/develop -- .env;
             sed -i "/PORT_DB/d" .env;
             sed -i "/DB_USER/d" .env;
             sed -i "/DB_PASSWORD/d" .env;
