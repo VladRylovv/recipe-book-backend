@@ -16,10 +16,6 @@ jobs:
         run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
       - name: Set NVM_DIR
         run: export NVM_DIR="$HOME/.nvm"
-      - name: Use Node.js version with NVM
-        run: nvm install node
-      - name: Set Node.js version with NVM
-        run: nvm use node
       - name: Run command on remote server
         uses: D3rHase/ssh-command-action@v0.2.2
         with:
@@ -29,5 +25,7 @@ jobs:
           command: |
             cd ../recipe-book-backend;
             git pull;
-            npm -v
+            export NVM_DIR=~/.nvm;
+            source ~/.nvm/nvm.sh;
+            npm -v;
             npm run build;
