@@ -7,5 +7,5 @@ module.exports = (err, req, res, next) => {
         return res.status(err.status).json({message: err.message, errors: err.errors})
     }
 
-    return res.status(500).json({message: `Internal server error${process.env.TEST}-2`})
+    return res.status(500).json({message: `Internal server error${process.env.TEST}-3`})
 }
