@@ -23,9 +23,11 @@ jobs:
             sed -i "/PORT_DB/d" .env;
             sed -i "/DB_USER/d" .env;
             sed -i "/DB_PASSWORD/d" .env;
+            sed -i "/DB_HOST/d" .env;
             echo "PORT_DB=5432" >> .env;
             echo "DB_USER=${{ secrets.DB_USERNAME }}" >> .env;
             echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env;
+            echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env;
             export NVM_DIR=~/.nvm;
             source ~/.nvm/nvm.sh;
             
