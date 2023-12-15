@@ -7,6 +7,7 @@ module.exports = class UserDto {
     createdAt;
     avatar;
 
+
     constructor(data) {
         this.id = data.id
         this.login = data.login
