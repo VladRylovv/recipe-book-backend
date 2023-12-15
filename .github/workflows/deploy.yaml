@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
     steps:
-      - name: Run command on remote server
+      - name: 🚖Deploy backend on server🚖
         uses: D3rHase/ssh-command-action@v0.2.2
         with:
           host: ${{ secrets.SSH_HOST }}
