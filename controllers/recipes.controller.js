@@ -1,4 +1,5 @@
 const recipeService = require("../services/recipe.service")
+const userService = require("../services/user.service");
 
 class RecipesController {
     async getRecipes(req, res, next) {
@@ -51,9 +52,11 @@ class RecipesController {
 
     async createRecipe(req, res, next) {
         try {
-            const {name, img, description, authorId} = req.body
+            const {name, description, authorId, recipeText} = req.body
 
-            const recipe = await recipeService.createRecipe(name, img, description, authorId)
+            const image = req.files?.image ? await recipeService.uploadImageRecipe(req, res, next) : null
+
+            const recipe = await recipeService.createRecipe(name, image, description, authorId, recipeText)
 
             res.status(200).json(recipe)
         } catch (err) {

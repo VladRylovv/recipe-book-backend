@@ -1,9 +1,28 @@
 const dayjs = require("dayjs");
+const md5 = require("md5")
 const db = require("../db");
 const RecipeDto = require("../dto/recipe.dto")
 const ApiError = require("../exceptions/api.error")
 
 class RecipeService {
+    async uploadImageRecipe(req, res, next) {
+        try {
+            const image = req.files.image
+            const {authorId} = req.body
+
+            const ext = image.name.split(".").at(-1)
+
+            const hashName = md5(image.name)
+            const path = `/uploads/${authorId}/recipes/${hashName}.${ext}`
+
+            await image.mv(`.${path}`)
+
+            return path
+        } catch (err) {
+            next(err)
+        }
+    }
+
     async getRecipes() {
         const recipes = await db.query("SELECT * FROM recipes WHERE is_checked = $1", [true])
         const users = await db.query("SELECT * FROM users")
@@ -56,14 +75,14 @@ class RecipeService {
         }
     }
 
-    async createRecipe(name, img, description, authorId) {
+    async createRecipe(name, img, description, authorId, recipeText) {
         const date = dayjs(+new Date()).toDate()
 
         const user = await db.query("SELECT * FROM users WHERE id = $1", [authorId])
 
         const createdRecipe = await db.query(
-            "INSERT INTO recipes (name, img, author_id, created_at, description) VALUES ($1, $2, $3, $4, $5) RETURNING *"
-            , [name, img, authorId, date, description]
+            "INSERT INTO recipes (name, img, author_id, created_at, description, recipe_text) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *"
+            , [name, img, authorId, date, description, recipeText]
         )
 
         return user ? {
