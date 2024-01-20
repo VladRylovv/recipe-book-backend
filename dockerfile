@@ -1,5 +1,14 @@
-FROM node:alpine as watch
-WORKDIR /recipe-book-backend
+FROM node:18.10.0
+
+WORKDIR /app
+
+COPY package.json package.json
+
 COPY . .
+
 RUN npm install
-RUN npm run watch
+
+EXPOSE 3002
+
+CMD [ "npm", "run", "watch" ]
+
