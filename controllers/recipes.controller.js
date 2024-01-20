@@ -6,7 +6,7 @@ class RecipesController {
         try {
             const recipes = await recipeService.getRecipes()
 
-            res.status(201).json(recipes)
+            res.status(200).json([])
         } catch (err) {
             next(err)
         }
