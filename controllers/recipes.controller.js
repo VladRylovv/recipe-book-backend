@@ -1,5 +1,4 @@
 const recipeService = require("../services/recipe.service")
-const userService = require("../services/user.service");
 
 class RecipesController {
     async getRecipes(req, res, next) {
@@ -32,6 +31,21 @@ class RecipesController {
                 recipeId,
                 recipe,
                 message: "Success check"
+            })
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    async removeRecipe(req, res, next) {
+        try {
+            const {recipeId} = req.params
+
+            await recipeService.removeRecipe(recipeId)
+
+            res.status(200).json({
+                message: "Success remove",
+                recipeId: +recipeId
             })
         } catch (err) {
             next(err)

@@ -24,7 +24,7 @@ class RecipeService {
     }
 
     async getRecipes() {
-        const recipes = await db.query("SELECT * FROM recipes WHERE is_checked = $1", [true])
+        const recipes = await db.query("SELECT * FROM recipes WHERE is_checked = $1 AND is_removed = $2", [true, false])
         const users = await db.query("SELECT * FROM users")
 
         return recipes.map(item => {
@@ -90,6 +90,10 @@ class RecipeService {
         } : {
             ...new RecipeDto(createdRecipe[0], null)
         }
+    }
+
+    async removeRecipe(recipeId) {
+        await db.query("UPDATE recipes SET is_removed = $1 WHERE id = $2", [true, recipeId])
     }
 }
 
