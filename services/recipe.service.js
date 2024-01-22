@@ -23,8 +23,10 @@ class RecipeService {
         }
     }
 
-    async getRecipes() {
-        const recipes = await db.query("SELECT * FROM recipes WHERE is_checked = $1 AND is_removed = $2", [true, false])
+    async getRecipes(searchText) {
+        const recipes = await db.query(
+          "SELECT * FROM recipes WHERE is_checked = $1 AND is_removed = $2 AND name ILIKE CONCAT('%', $3 ,'%')", [true, false, searchText]
+        )
         const users = await db.query("SELECT * FROM users")
 
         return recipes.map(item => {
