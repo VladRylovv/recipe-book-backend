@@ -3,7 +3,8 @@ const recipeService = require("../services/recipe.service")
 class RecipesController {
     async getRecipes(req, res, next) {
         try {
-            const recipes = await recipeService.getRecipes()
+            const {searchText} = req.query
+            const recipes = await recipeService.getRecipes(searchText)
 
             res.status(200).json(recipes)
         } catch (err) {
